@@ -23,6 +23,7 @@ import {
 import Image from "next/image";
 import ReddishLogo from "@/images/Reddish Full.png";
 import Link from "next/link";
+import { getSubreddits } from "@/sanity/lib/subreddit/getSubreddits";
 // import { getSubreddits } from "@/sanity/lib/subreddit/getSubreddits";
 // import CreateCommunityButton from "./header/CreateCommunityButton";
 
@@ -42,23 +43,23 @@ export async function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   // TODO: get all subreddits from sanity
-  // const subreddits = await getSubreddits();
+  const subreddits = await getSubreddits();
 
   // // This is sample data.
-  // const sidebarData: SidebarData = {
-  //   navMain: [
-  //     {
-  //       title: "Communities",
-  //       url: "#",
-  //       items:
-  //         subreddits?.map((subreddit) => ({
-  //           title: subreddit.title || "unknown",
-  //           url: `/community/${subreddit.slug}`,
-  //           isActive: false,
-  //         })) || [],
-  //     },
-  //   ],
-  // };
+  const sidebarData: SidebarData = {
+    navMain: [
+      {
+        title: "Communities",
+        url: "#",
+        items:
+          subreddits?.map((subreddit) => ({
+            title: subreddit.title || "unknown",
+            url: `/community/${subreddit.slug}`,
+            isActive: false,
+          })) || [],
+      },
+    ],
+  };
 
   return (
     <Sidebar {...props}>
@@ -113,7 +114,7 @@ export async function AppSidebar({
 
         <SidebarGroup>
           <SidebarMenu>
-            {/* {sidebarData.navMain.map((item, index) => (
+            {sidebarData.navMain.map((item, index) => (
               <Collapsible
                 key={item.title}
                 defaultOpen={index === 1}
@@ -145,7 +146,7 @@ export async function AppSidebar({
                   ) : null}
                 </SidebarMenuItem>
               </Collapsible>
-            ))} */}
+            ))}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
