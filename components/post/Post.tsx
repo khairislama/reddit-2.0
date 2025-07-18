@@ -7,6 +7,8 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { MessageSquare } from "lucide-react";
 import CommentInput from "../comment/CommentInput";
+import CommentList from "../comment/CommentList";
+import PostVoteButtons from "./PostVotesButtons";
 
 interface PostProps {
   post: GetAllPostsQueryResult[number];
@@ -25,12 +27,12 @@ async function Post({ post, userId }: PostProps) {
     >
       <div className="flex">
         {/* Vote Buttons */}
-        {/* <PostVoteButtons
-            contentId={post._id}
-            votes={votes}
-            vote={vote}
-            contentType="post"
-          /> */}
+        <PostVoteButtons
+          contentId={post._id}
+          votes={votes}
+          vote={vote}
+          contentType="post"
+        />
 
         {/* Post Content */}
         <div className="flex-1 p-3">
@@ -92,7 +94,7 @@ async function Post({ post, userId }: PostProps) {
           </button>
 
           <CommentInput postId={post._id} />
-          {/* <CommentList postId={post._id} comments={comments} userId={userId} /> */}
+          <CommentList postId={post._id} comments={comments} userId={userId} />
         </div>
       </div>
 
